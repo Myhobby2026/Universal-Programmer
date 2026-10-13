@@ -1,0 +1,669 @@
+MASTER PROMPT: Universal Programmer Studio — Professional Windows Application Using Teensy 4.1
+
+1. Project Overview
+
+Act as a senior embedded systems engineer, hardware programmer developer, Windows desktop application architect, firmware engineer, protocol specialist, and professional UI/UX designer.
+
+Develop a complete, integrated, professional-grade Universal Programmer Studio for Windows 10 and Windows 11, using a Teensy 4.1 development board as the USB-connected hardware controller.
+
+The application must provide a modern, clean, responsive, multi-window desktop environment with detachable tabs, dockable panels, customizable workspaces, modern dark/light themes, and a professional electronics-development-tool appearance.
+
+Important delivery requirement: Build the complete integrated project in one delivery. Do not provide a phase-wise development plan, tutorial, or architecture-only response. Generate the actual source files, firmware, GUI, hardware communication layer, device profiles, build scripts, tests, and documentation. If the output is too large for a single message, create the complete repository in the available workspace and provide its file structure and verified access to the generated files.
+
+Do not claim hardware support, successful compilation, or tested functionality unless it has actually been implemented and validated.
+
+2. Technology Stack
+
+Windows desktop application
+
+- Python 3.12 or a compatible stable version.
+- PySide6 / Qt 6.
+- QMainWindow, QTabWidget, QDockWidget, QSplitter, QTreeView, QTableView and QAbstractItemModel where appropriate.
+- Qt stylesheets or a consistent Qt theme system.
+- pyqtgraph or an equivalent appropriate visualization library for live signal plots.
+- pyserial for USB serial communication with Teensy.
+- Intel HEX and binary-file parsing libraries where appropriate.
+- QThread, Qt worker objects, signals and slots for background operations.
+- SQLite for device profiles, recent files, session metadata and preferences.
+- pytest and appropriate hardware-independent automated tests.
+- PyInstaller or an equivalent supported tool for packaging a Windows executable.
+
+Teensy firmware
+
+- Teensy 4.1-compatible Arduino/C++ firmware.
+- A structured, versioned USB serial command protocol.
+- Defined message framing, command IDs, response codes, timeouts, error handling and integrity checks.
+- A firmware configuration compatible with the actual Teensy 4.1 hardware and its available peripherals.
+
+Do not use fictional Teensy APIs or unsupported peripheral capabilities. Verify library compatibility and actual pin capabilities before implementation.
+
+3. Modern Professional UI/UX
+
+Design the GUI to look like a professional electronics development suite, combining the usability of a modern IDE, memory editor, hardware programmer and protocol analyzer.
+
+Visual requirements
+
+- Modern dark theme as the default.
+- Complete light theme.
+- Optional system-theme preference.
+- Consistent typography, spacing, icons, margins and corner radii.
+- Subtle borders, separators, hover states, selected-tab indicators and focus states.
+- High-DPI display support.
+- Responsive layouts for different monitor sizes.
+- Keyboard shortcuts and accessible labels.
+- Clear distinction between connected, disconnected, busy, successful, warning and error states.
+- Avoid oversized controls, excessive gradients, cluttered toolbars and unnecessary animations.
+- Use a consistent icon set such as Qt-compatible SVG icons or a suitable open-source icon library.
+- All colors, fonts, spacing and component styling must come from a centralized theme system.
+
+Dark theme design direction
+
+Use a refined dark IDE-style appearance with:
+
+- Dark charcoal application background.
+- Slightly lighter dock and toolbar surfaces.
+- High-contrast text.
+- A restrained blue or cyan accent.
+- Clear but subtle borders.
+- Distinct colors for success, warning and error states.
+- Carefully styled tables, trees, tabs, tooltips, menus, dialogs, inputs, sliders and progress bars.
+
+The exact palette must be centralized so it can be changed consistently.
+
+Theme engine
+
+Implement:
+
+- Dark, Light and System theme options.
+- A theme selector in Settings and the main toolbar.
+- Immediate theme switching without restarting the application wherever possible.
+- Persistent theme preference.
+- Consistent theme application to every main window, detached window, dialog, menu, dock panel and custom widget.
+- Theme-aware HEX editor, terminal, tables, charts and device trees.
+
+4. Multi-Window, Multi-Tab and Docking System
+
+This is a mandatory core feature, not an optional enhancement.
+
+Implement a professional workspace using PySide6 Qt window and docking components.
+
+Main application window
+
+Include:
+
+- Application title bar and connection status.
+- Menu bar.
+- Customizable main toolbar.
+- Left device-explorer dock.
+- Center tabbed workspace.
+- Right device-information and operation-settings dock.
+- Bottom terminal, log and progress dock.
+- Status bar with Teensy connection, firmware version, active interface and operation state.
+
+Docking and floating windows
+
+Users must be able to:
+
+- Dock panels on the left, right, top or bottom.
+- Resize panels using splitters.
+- Hide or show panels.
+- Detach supported workspace tabs into separate floating windows.
+- Move and redock floating windows.
+- Open several editor tabs simultaneously.
+- Split supported editor views horizontally or vertically.
+- Compare two memory buffers side by side.
+- Keep the terminal and operation log visible while using other tabs.
+- Restore the default workspace with one click.
+- Save, name, switch between and restore custom workspace layouts.
+- Restore the last window layout and geometry on application startup.
+
+Use QMainWindow, QDockWidget, QTabWidget and QSplitter appropriately. Implement real tab-detachment and redocking behavior rather than merely opening duplicate-looking windows.
+
+If a particular Qt component does not provide detachable tabs automatically, implement the required behavior with a maintainable custom solution.
+
+Main workspace tabs
+
+Provide separate, functional workspace tabs for:
+
+1. Dashboard
+2. Device Explorer
+3. Device Database
+4. SWD Programmer
+5. JTAG Programmer
+6. UART Bootloader Programmer
+7. SPI NOR Flash Programmer
+8. I²C EEPROM Programmer
+9. Parallel NAND Programmer
+10. Memory Editor
+11. File Manager
+12. Device Identification
+13. Read / Write / Erase / Verify Operations
+14. Logic Analyzer and Protocol Monitor
+15. Serial Terminal
+16. Pin Mapping and Interface Configuration
+17. Operation History and Reports
+18. Settings and Preferences
+
+Each tab must have a defined purpose, consistent styling and real connections to the relevant application services.
+
+Do not fabricate successful device detection or programming results when hardware is absent.
+
+Default workspace layout
+
+- Left: Device Explorer, device families and saved profiles.
+- Center: Main programming and editing tabs.
+- Right: Target device details, voltage requirements, pin mapping and operation configuration.
+- Bottom: Serial terminal, command log, operation queue, progress indicators and verification results.
+
+Users must be able to customize this layout.
+
+5. Dashboard
+
+Create a professional dashboard containing:
+
+- Teensy connection status.
+- Firmware version and protocol version.
+- Detected controller information.
+- Selected target device.
+- Active programming interface.
+- Recent files and sessions.
+- Recent operations.
+- Supported-device summary.
+- Operation success/failure history.
+- Quick actions for opening files, selecting devices and starting supported operations.
+
+Show “Not connected” or “Hardware unavailable” accurately when appropriate.
+
+6. Device Explorer and Database
+
+Build a searchable device database with:
+
+- Manufacturer.
+- Device family.
+- Exact part number.
+- Device category.
+- Interface type.
+- Device capacity.
+- Address width.
+- Page size and erase geometry where relevant.
+- Voltage requirements.
+- Pin mapping.
+- Identification method.
+- Programming algorithm.
+- Supported operations.
+- Datasheet URL, when known and verified.
+- Support status and validation notes.
+
+Include filtering, sorting, manufacturer grouping, favorites and device-profile import/export.
+
+Use explicit support levels:
+
+- Implemented and tested on hardware.
+- Implemented but not hardware-verified.
+- Profile available; programming algorithm incomplete.
+- Unsupported.
+
+Do not mark a chip as supported merely because it uses SPI, I²C, JTAG or SWD.
+
+7. SWD Programmer
+
+Create a dedicated SWD module for supported targets, particularly compatible STM32 devices.
+
+Features:
+
+- SWD connection configuration.
+- Target voltage measurement only when supported by actual sensing hardware.
+- Target identification.
+- Device ID and debug-access status.
+- Flash memory information.
+- Read, erase, program and verify operations where supported.
+- Reset and connection options.
+- Memory-region information.
+- Firmware file selection.
+- Progress reporting and error recovery.
+
+Implement real SWD transactions and target-specific flash algorithms. Clearly distinguish debugging access from flash programming support.
+
+Do not claim universal SWD compatibility.
+
+8. JTAG Programmer
+
+Create a dedicated JTAG module for supported targets.
+
+Features:
+
+- TCK, TMS, TDI and TDO configuration.
+- Optional target reset and supported control signals.
+- JTAG chain discovery where implemented.
+- TAP state-machine control.
+- Instruction and data register operations.
+- IDCODE reading.
+- Supported boundary-scan operations.
+- Target-specific programming support when a valid algorithm exists.
+
+Clearly distinguish basic JTAG access, boundary-scan testing, debug access and flash programming. These are not interchangeable capabilities.
+
+9. UART Bootloader Programmer
+
+Implement a UART programming module for targets with documented and supported bootloaders.
+
+Features:
+
+- COM-port selection.
+- Baud-rate configuration.
+- Connection and bootloader synchronization.
+- Supported protocol selection.
+- Device identification.
+- Read, write, erase and verify where the target bootloader supports them.
+- Binary and Intel HEX file support as appropriate.
+- Timeouts, retry logic and detailed error messages.
+- Serial console and raw diagnostic mode.
+
+Do not assume every UART-connected microcontroller supports programming through UART.
+
+10. SPI NOR Flash Programmer
+
+Implement a real SPI NOR flash engine for explicitly supported devices.
+
+Features:
+
+- JEDEC ID reading.
+- Supported device identification.
+- Capacity and geometry detection.
+- Read, write, erase and verify.
+- Sector and block erase.
+- Page-program boundaries.
+- Busy polling and timeout management.
+- Write-enable and status-register handling.
+- Protection-bit reporting and documented protection handling.
+- Progress reporting and operation cancellation where safe.
+- Binary-file loading and saving.
+- Hex preview and checksums.
+
+Respect the target chip's voltage, timing and command requirements.
+
+11. I²C EEPROM Programmer
+
+Implement an I²C programming module for supported EEPROMs.
+
+Features:
+
+- Device profiles.
+- Address and capacity configuration.
+- Page-write handling.
+- Address-width configuration.
+- ACK polling and timeouts.
+- Read, write, verify and supported erase-to-value operations.
+- Read-back comparison.
+- File import/export.
+- Hex preview and progress reporting.
+
+Support 24C-series devices only when the exact device's addressing, page size and electrical requirements have been configured correctly.
+
+12. Parallel NAND Flash Programmer
+
+Implement a dedicated NAND engine for explicitly supported NAND devices.
+
+Features:
+
+- NAND command and address cycles.
+- Status-register reading.
+- Page read and program.
+- Block erase.
+- Device identification.
+- Geometry and page/OOB layout.
+- ECC configuration and implementation appropriate to the target.
+- Bad-block detection and preservation.
+- OOB data handling.
+- Bad-block table management where appropriate.
+- Raw dump and logical data export.
+- Verification and detailed error reporting.
+
+Separate raw physical NAND access from logical data extraction. Do not silently discard OOB bytes, ECC information or bad-block markers.
+
+Provide configurable, device-specific timing only within validated electrical and protocol limits.
+
+Document any required external buffer, level shifter, voltage regulator, pull-up, NAND socket or adapter board.
+
+13. Memory Editor
+
+Create a professional hex and memory editor.
+
+Features:
+
+- Address column.
+- Hexadecimal data column.
+- ASCII representation.
+- Configurable bytes per row.
+- Address navigation.
+- Search for hex patterns and ASCII strings.
+- Find next and previous.
+- Go to address.
+- Select, copy and paste bytes.
+- Edit buffer data.
+- Undo and redo for local edits.
+- Compare two buffers.
+- Highlight changed bytes.
+- Fill a range with a specified value.
+- Import and export raw binary.
+- Show file size, address range and checksum.
+- Clearly distinguish local buffer edits from data already programmed on the target.
+
+Provide large-file handling without loading arbitrarily large files into memory all at once.
+
+14. File Manager and Firmware Formats
+
+Support appropriate formats including:
+
+- Binary ".bin".
+- Intel HEX ".hex".
+- Raw NAND dumps.
+- Other formats only when implemented and validated.
+
+Features:
+
+- Open, save, save as and recent files.
+- File metadata and size.
+- Checksum calculation.
+- Binary preview.
+- Address-range information where applicable.
+- Import/export validation.
+- Clear warnings before overwriting files.
+- Safe handling of malformed or unsupported formats.
+
+Do not silently reinterpret Intel HEX addresses as a contiguous binary image without a documented address and fill-value policy.
+
+15. Programming Operation Center
+
+Create a shared operation engine for all supported programmers.
+
+Support operations as applicable:
+
+- Connect.
+- Identify.
+- Read.
+- Save dump.
+- Blank check.
+- Erase.
+- Program.
+- Verify.
+- Compare.
+- Disconnect.
+
+Provide:
+
+- Overall progress.
+- Per-stage progress.
+- Current address or page when available.
+- Transfer statistics.
+- Elapsed time.
+- Estimated remaining time only when a meaningful estimate is possible.
+- Cancel operation where safe.
+- Operation logs.
+- Error recovery.
+- Structured reports.
+
+Use a job queue and enforce mutual exclusion for conflicting operations on the same physical hardware resource. Never run conflicting programming operations concurrently on the same Teensy pins or target.
+
+16. Logic Analyzer and Protocol Monitor
+
+Create a protocol monitoring workspace for supported capture hardware and firmware.
+
+Potential protocols:
+
+- UART.
+- SPI.
+- I²C.
+- GPIO digital transitions.
+
+Features:
+
+- Capture start/stop.
+- Channel configuration.
+- Timestamped transitions.
+- Protocol decoding where implemented.
+- Searchable event list.
+- Zoomable signal display.
+- Trigger configuration where supported.
+- Export captures to CSV or another implemented format.
+- Error and dropped-sample indicators.
+
+The GUI must accurately display actual sampling limits. Do not promise high-speed logic analysis beyond Teensy firmware, USB throughput, buffering and electrical constraints.
+
+17. Serial Terminal and Diagnostic Console
+
+Provide a terminal dock or detachable terminal window with:
+
+- COM-port selection.
+- Baud rate and serial settings.
+- Connect/disconnect.
+- Hex and text modes.
+- TX/RX display.
+- Timestamped logs.
+- Command history.
+- Clear and save log.
+- Copy selected output.
+- Search/filter.
+- Protocol debug mode.
+- Error and timeout reporting.
+
+Use a single controlled serial-transport owner to avoid conflicts between the terminal and programmer backend.
+
+18. Teensy 4.1 Firmware and USB Protocol
+
+Develop complete firmware for the actual Teensy 4.1 board.
+
+The firmware must include:
+
+- USB serial initialization.
+- Version and capability query.
+- Command parser.
+- Message framing.
+- Command validation.
+- Length checking.
+- Error responses.
+- Operation state tracking.
+- Timeout handling.
+- Supported GPIO and interface configuration.
+- Implemented protocol operations.
+- Firmware diagnostic information.
+- A clear hardware capability map.
+
+Define a stable protocol between the Windows application and Teensy, including:
+
+- Protocol version.
+- Command ID.
+- Request sequence ID.
+- Payload length.
+- Payload.
+- Response status.
+- Error code.
+- Integrity check where appropriate.
+
+Implement robust packet parsing, maximum packet sizes, malformed-message handling, command timeouts and recovery after USB disconnect/reconnect.
+
+The application must detect firmware/application protocol mismatches and explain how to update firmware.
+
+Do not invent hardware features. Where external circuitry or another controller is required, document the limitation and expose the feature as unavailable until the correct hardware is connected.
+
+19. Hardware Safety and Electrical Design
+
+Create a hardware integration document containing:
+
+- Teensy 4.1 pin map.
+- Interface pin assignments.
+- Target connections.
+- Required external circuits.
+- Power requirements.
+- Grounding requirements.
+- Logic-level compatibility.
+- Level-shifter requirements.
+- Protection against incompatible target voltages.
+- Reset and boot-mode requirements where applicable.
+- Signal integrity and timing limitations.
+
+Teensy 4.1 uses 3.3 V logic and its pins are not generally 5 V tolerant. Do not connect incompatible target signals directly.
+
+Do not assume Teensy can safely power every target. Include appropriate target power control, current limits and voltage monitoring only when the required external hardware exists.
+
+For JTAG/SWD, NAND and eMMC, document required adapters and target-specific circuitry. Do not claim eMMC programming is available through a simple GPIO implementation. Require a suitable supported host interface, voltage compatibility and appropriate hardware/firmware before enabling eMMC features.
+
+20. Application Architecture
+
+Organize the repository into maintainable modules, for example:
+
+- "app/" — application startup and main window.
+- "ui/" — windows, tabs, dock panels, dialogs and widgets.
+- "themes/" — dark/light theme definitions and theme manager.
+- "core/" — shared application services.
+- "transport/" — USB serial transport and packet protocol.
+- "firmware/" — Teensy firmware source and build instructions.
+- "programmers/" — SWD, JTAG, UART, SPI, I²C and NAND engines.
+- "devices/" — device database and profiles.
+- "memory/" — hex editor, buffers and comparison.
+- "file_formats/" — binary and Intel HEX support.
+- "analyzer/" — capture and protocol-decoding modules.
+- "storage/" — SQLite database and user preferences.
+- "workers/" — background tasks.
+- "tests/" — automated tests and hardware-independent simulations.
+- "docs/" — user guide, hardware guide and troubleshooting.
+- "scripts/" — installation, firmware and packaging utilities.
+- "assets/" — icons and application resources.
+
+You may adjust this structure if a better design is justified, but all responsibilities must remain clear and modular.
+
+21. Settings, Preferences and Workspace Persistence
+
+Provide settings for:
+
+- Theme and accent.
+- Font size and display scaling.
+- COM-port preferences.
+- Communication timeout.
+- Supported interface configuration.
+- Default file paths.
+- Device profiles.
+- Logging verbosity.
+- Workspace layout.
+- Recent files.
+- Operation confirmation preferences.
+- Firmware and protocol versions.
+
+Save settings safely and recover from invalid or outdated configuration data.
+
+22. Error Handling and Reliability
+
+Handle:
+
+- Teensy disconnected during an operation.
+- Incorrect firmware version.
+- Unsupported target.
+- Target not responding.
+- Invalid device ID.
+- Invalid or corrupt file.
+- Timeout.
+- Serial-port access denied.
+- Buffer overflow or malformed protocol packet.
+- Failed read/write/verify.
+- Insufficient memory.
+- Unsupported operation.
+- Application shutdown during an active operation.
+
+Display actionable messages rather than raw stack traces. Save detailed diagnostic logs for troubleshooting.
+
+Use safe defaults, explicit confirmations for destructive operations, and clear separation between target data and local files.
+
+23. Testing Requirements
+
+Provide automated tests for:
+
+- Packet encoding and decoding.
+- USB protocol parsing.
+- Timeout and disconnect behavior.
+- Device-profile validation.
+- Binary and Intel HEX parsing.
+- Memory-buffer editing.
+- Checksum generation.
+- Operation-state transitions.
+- Theme switching.
+- Workspace persistence.
+- Device capability gating.
+- Error handling.
+- Mock transport and simulated target operations.
+
+Use mock hardware for automated tests, but never present mock results as real hardware results.
+
+Run available syntax checks, unit tests and build checks. Report actual outcomes honestly. Identify tests that require a physical Teensy, target IC or adapter.
+
+24. Windows Installer and Distribution
+
+Provide:
+
+- "requirements.txt" or an equivalent locked dependency specification.
+- Application entry point.
+- PyInstaller build configuration.
+- Windows build script.
+- Application icon and version metadata.
+- Firmware build/flash instructions.
+- User documentation.
+- Hardware wiring documentation.
+- Troubleshooting guide.
+- Release notes.
+- Clean installation and first-run instructions.
+
+Package the GUI into a Windows executable when the available environment permits. Do not claim that a Windows executable was successfully built unless the build was actually run and validated.
+
+25. Complete Deliverables
+
+Deliver the complete integrated repository with:
+
+1. Full Windows GUI source code.
+2. Complete modern multi-window and multi-tab interface.
+3. Dark/light theme engine.
+4. Docking, detaching, redocking and workspace persistence.
+5. Teensy 4.1 firmware source.
+6. USB communication protocol implementation.
+7. Programmer engines for each explicitly supported interface.
+8. Device profiles and support-status metadata.
+9. Hex editor and file-format handling.
+10. Logic analyzer/protocol-monitor implementation within verified hardware limits.
+11. Operation engine and diagnostics.
+12. Unit tests and hardware-independent integration tests.
+13. Dependency and build configuration.
+14. Windows packaging scripts.
+15. Hardware wiring and safety documentation.
+16. Installation guide.
+17. Complete user manual.
+18. Troubleshooting guide.
+19. Supported-device list and known limitations.
+20. Example configurations and sample test files.
+
+26. Acceptance Criteria
+
+The project is acceptable only when:
+
+- The Windows GUI starts without avoidable errors.
+- The dark theme is polished and consistent.
+- Light and system themes work.
+- Tabs can be opened, switched, detached and redocked as implemented.
+- Dock panels can be moved, resized, hidden and restored.
+- Workspace layouts persist between sessions.
+- Background operations do not freeze the GUI.
+- The application detects Teensy connection and protocol version.
+- Device support is accurately represented.
+- File operations and memory editing have automated tests.
+- The application rejects unsupported or unsafe operations.
+- The firmware and application use the same documented protocol.
+- Build and test results are reported truthfully.
+- No core feature is represented by a decorative button, fake progress bar, placeholder function or simulated success.
+- Any hardware-dependent feature that cannot be validated is clearly labelled.
+
+Final Instruction
+
+Now create the complete integrated Universal Programmer Studio project, not a phase-wise tutorial and not just a design proposal.
+
+Prioritize a polished professional GUI with modern dark/light themes, multi-window support, detachable tabs, dockable panels, multiple workspaces, and a reliable Teensy 4.1 communication architecture.
+
+Implement real functionality wherever the required hardware and algorithms are supported. For unsupported targets, clearly document the missing hardware, protocol or programming algorithm instead of pretending it works.
+
+Generate the actual files, run all available checks, and provide the project directory structure, installation instructions, build instructions, test results and known limitations.
